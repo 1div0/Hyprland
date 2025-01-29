@@ -29,7 +29,7 @@ int CConfigWatcher::getInotifyFD() {
     return m_inotifyFd;
 }
 
-void CConfigWatcher::setWatchList(const std::vector<std::string>& paths) {
+void CConfigWatcher::setWatchList(const std::vector<std::string>& paths, const bool watchSymlinks) {
 
     // we clear all watches first, because whichever fired is now invalid
     // or that is at least what it seems to be.
@@ -46,7 +46,7 @@ void CConfigWatcher::setWatchList(const std::vector<std::string>& paths) {
     // add new paths
     for (const auto& path : paths) {
         m_watches.emplace_back(SInotifyWatch{
-            .wd   = inotify_add_watch(m_inotifyFd, path.c_str(), IN_MODIFY),
+            .wd   = inotify_add_watch(m_inotifyFd, path.c_str(), IN_MODIFY | (watchSymlinks ? IN_DONT_FOLLOW : 0)),
             .file = path,
         });
     }

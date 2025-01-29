@@ -14,7 +14,7 @@ class CConfigWatcher {
     };
 
     int  getInotifyFD();
-    void setWatchList(const std::vector<std::string>& paths);
+    void setWatchList(const std::vector<std::string>& paths, const bool watchSymlinks);
     void setOnChange(const std::function<void(const SConfigWatchEvent&)>& fn);
     void onInotifyEvent();
 

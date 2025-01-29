@@ -1100,7 +1100,7 @@ static std::string dispatchKeyword(eHyprCtlOutputFormat format, std::string in) 
         }
     }
 
-    if (COMMAND.contains("misc:disable_autoreload"))
+    if (COMMAND.contains("misc:disable_autoreload") || COMMAND.contains("misc:watch_symlinks"))
         g_pConfigManager->updateWatcher();
 
     // decorations will probably need a repaint

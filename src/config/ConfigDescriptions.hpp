@@ -1041,6 +1041,12 @@ inline static const std::vector<SConfigOptionDescription> CONFIG_OPTIONS = {
         .data        = SConfigOptionDescription::SBoolData{false},
     },
     SConfigOptionDescription{
+        .value       = "misc:watch_symlinks",
+        .description = "If true and the config is a symlink, it will be reloaded when the symlink changes, not when the pointed file changes.",
+        .type        = CONFIG_OPTION_BOOL,
+        .data        = SConfigOptionDescription::SBoolData{false},
+    },
+    SConfigOptionDescription{
         .value       = "misc:enable_swallow",
         .description = "Enable window swallowing",
         .type        = CONFIG_OPTION_BOOL,

@@ -411,6 +411,7 @@ CConfigManager::CConfigManager() {
     m_pConfig->addConfigValue("misc:animate_manual_resizes", Hyprlang::INT{0});
     m_pConfig->addConfigValue("misc:animate_mouse_windowdragging", Hyprlang::INT{0});
     m_pConfig->addConfigValue("misc:disable_autoreload", Hyprlang::INT{0});
+    m_pConfig->addConfigValue("misc:watch_symlinks", Hyprlang::INT{0});
     m_pConfig->addConfigValue("misc:enable_swallow", Hyprlang::INT{0});
     m_pConfig->addConfigValue("misc:swallow_regex", {STRVAL_EMPTY});
     m_pConfig->addConfigValue("misc:swallow_exception_regex", {STRVAL_EMPTY});
@@ -914,7 +915,8 @@ std::optional<std::string> CConfigManager::resetHLConfig() {
 
 void CConfigManager::updateWatcher() {
     static const auto PDISABLEAUTORELOAD = CConfigValue<Hyprlang::INT>("misc:disable_autoreload");
-    g_pConfigWatcher->setWatchList(*PDISABLEAUTORELOAD ? std::vector<std::string>{} : m_configPaths);
+    static const auto WATCHSYMLINKS      = CConfigValue<Hyprlang::INT>("misc:watch_symlinks");
+    g_pConfigWatcher->setWatchList(*PDISABLEAUTORELOAD ? std::vector<std::string>{} : m_configPaths, *WATCHSYMLINKS);
 }
 
 void CConfigManager::postConfigReload(const Hyprlang::CParseResult& result) {
